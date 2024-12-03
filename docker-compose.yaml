@@ -1,0 +1,40 @@
+services:
+  keycloak:
+    container_name: keycloak-onestar3gram
+    command: start --optimized --hostname=localhost
+    build:
+      context: .
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-keycloak-onestar3gram/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HOSTNAME: localhost
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "9000:9000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./certs/cert.pem:/opt/keycloak/conf/server.crt.pem
+      - ./certs/key.pem:/opt/keycloak/conf/server.key.pem
+
+  postgres:
+    image: postgres:16.6
+    container_name: postgres-keycloak-onestar3gram
+    volumes:
+      - postgres_data_onestar3gram:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432"
+
+volumes:
+  postgres_data_onestar3gram:
