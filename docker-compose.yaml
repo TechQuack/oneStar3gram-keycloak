@@ -1,7 +1,7 @@
 services:
   keycloak:
     container_name: keycloak-onestar3gram
-    command: start --optimized --hostname=localhost
+    command: start --optimized
     build:
       context: .
     environment:
@@ -11,12 +11,12 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres-keycloak-onestar3gram/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME: localhost
       KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
+      KC_HOSTNAME_STRICT: false
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json"
     ports:
-      - "8080:8080"
+      - "8081:8080"
       - "8443:8443"
       - "9000:9000"
     depends_on:
@@ -25,6 +25,8 @@ services:
       - ./certs/cert.pem:/opt/keycloak/conf/server.crt.pem
       - ./certs/key.pem:/opt/keycloak/conf/server.key.pem
       - ./imports/realm-export.json:/opt/jboss/keycloak/imports/realm-export.json
+    networks:
+      - keycloak
 
   postgres:
     image: postgres:16.6
@@ -37,6 +39,13 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432"
+    networks:
+      - keycloak
 
 volumes:
   postgres_data_onestar3gram:
+
+networks:
+  keycloak:
+    driver: bridge
+    name: keycloak
