@@ -1,0 +1,29 @@
+entryPoints:
+  front:
+    address: ":443"
+
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: front
+          scheme: https
+          permanent: true
+  
+  back:
+    address: ":8081"
+
+  keycloak:
+    address: ":8080"
+
+api:
+  dashboard: true
+  insecure: false
+
+providers:
+  file:
+    filename: /etc/traefik/dynamic_conf.yml
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    watch: true

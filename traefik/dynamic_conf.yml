@@ -1,0 +1,53 @@
+http:
+  routers:
+    dashboard:
+      entryPoints:
+        - "back"
+      rule: "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+      middlewares:
+        - auth
+      service: api@internal
+      tls: true
+    back-router:
+      entryPoints:
+        - "back"
+      rule: "PathPrefix(`/`) && !(PathPrefix(`/api/`) || PathPrefix(`/dashboard/`))"
+      service: back-service
+      tls: {}
+    front-router:
+      entryPoints:
+        - "front"
+      rule: "PathPrefix(`/`)"
+      service: front-service
+      tls: {}
+    keycloak-router:
+      entryPoints:
+        - "keycloak"
+      rule: "PathPrefix(`/`)"
+      service: keycloak-service
+      tls: {}
+    
+  middlewares:
+    auth:
+      basicAuth:
+        users:
+          - "admin:$apr1$WJJlREeM$K/1UbA1jXdeYfSH22n6gb/"
+
+  services:
+    back-service:
+      loadBalancer:
+        servers:
+          - url: "http://backend:8080/"
+    keycloak-service:
+      loadBalancer:
+        servers:
+          - url: "http://keycloak-onestar3gram:8080/"
+    front-service:
+      loadBalancer:
+        servers:
+          - url: "http://frontend:4200/"
+
+tls:
+  certificates:
+    - certFile: /etc/traefik/cert.pem
+      keyFile: /etc/traefik/key.pem

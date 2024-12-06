@@ -1,7 +1,7 @@
 services:
   keycloak:
     container_name: keycloak-onestar3gram
-    command: start --optimized
+    command: start-dev
     build:
       context: .
     environment:
@@ -11,20 +11,36 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres-keycloak-onestar3gram/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
       KC_HOSTNAME_STRICT: false
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json"
+      PROXY_ADDRESS_FORWARDING: true
     ports:
-      - "8081:8080"
-      - "8443:8443"
-      - "9000:9000"
+      - "8080"
+      - "9000"
     depends_on:
       - postgres
     volumes:
-      - ./certs/cert.pem:/opt/keycloak/conf/server.crt.pem
-      - ./certs/key.pem:/opt/keycloak/conf/server.key.pem
       - ./imports/realm-export.json:/opt/jboss/keycloak/imports/realm-export.json
+    networks:
+      - keycloak
+   
+  reverse-proxy:
+    container_name: proxy-onestar3gram
+    # The official v3 Traefik docker image
+    image: traefik:v3.2
+    # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+      - "8081:8081"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8085:8085"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/:/etc/traefik:ro
     networks:
       - keycloak
 
