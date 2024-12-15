@@ -19,3 +19,18 @@ On peut ensuite ajouter à la fin de ce fichier la ligne suivante :
 Sur Linux, il est nécessaire d'ouvrir le fichier /etc/hosts et d'y ajouter la même ligne à la fin de celui-ci.
 
 
+### Configuration du Certificat TLS (OPTIONNEL)
+
+Pour ne pas avoir l'avertissement de sécurité du navigateur au lancement de l'application, il est possible d'ajouter le certificat TLS du serveur aux autorités de certification racine de notre ordinateur.
+
+#### Windows
+
+Sur Windows, on peut ouvrir le menu "Gérer les certificats utilisateurs", se rendre dans le menu "Autorités de certification racines de confiance", dans les certificats et à la fin de ceux-ci, faire clic droit dans le vide pour sélectionner la tâche "Importer". Il faut ensuite sélectionner notre fichier traefik/cert.pem puis valider l'ensemble des menus.
+
+#### Linux
+
+Sur Linux, on peut utiliser les commandes suivantes : 
+```
+sudo cp traefik/cert.pem /usr/local/share/ca-certificates/cert.crt
+sudo update-ca-certificates
+```
