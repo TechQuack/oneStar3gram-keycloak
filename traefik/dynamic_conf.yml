@@ -37,7 +37,7 @@ http:
     back-service:
       loadBalancer:
         servers:
-          - url: "http://backend:8080/"
+          - url: "http://backend_onestar3gram:8080/"
     keycloak-service:
       loadBalancer:
         servers:
@@ -51,3 +51,8 @@ tls:
   certificates:
     - certFile: /etc/traefik/cert.pem
       keyFile: /etc/traefik/key.pem
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /etc/traefik/cert.pem
+        keyFile: /etc/traefik/key.pem

@@ -1,7 +1,7 @@
 services:
   keycloak:
     container_name: keycloak-onestar3gram
-    command: start-dev
+    command: start-dev --import-realm
     build:
       context: .
     environment:
@@ -11,16 +11,17 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres-keycloak-onestar3gram/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME_STRICT: false
-      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json"
-      PROXY_ADDRESS_FORWARDING: true
+      KC_HOSTNAME: proxy-onestar3gram
+      KC_HTTP_ENABLED: true
+      KC_PROXY_ADDRESS_FORWARDING: true
+      KC_PROXY_HEADERS: xforwarded
     ports:
       - "8080"
       - "9000"
     depends_on:
       - postgres
     volumes:
-      - ./imports/realm-export.json:/opt/jboss/keycloak/imports/realm-export.json
+      - ./imports:/opt/keycloak/data/import
     networks:
       - keycloak
    
