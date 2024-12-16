@@ -676,18 +676,18 @@
       "clientId": "onestar3gram-backend",
       "name": "Backend",
       "description": "",
-      "rootUrl": "http://proxy-onestar3gram:8081",
-      "adminUrl": "http://proxy-onestar3gram:8081",
-      "baseUrl": "http://proxy-onestar3gram:8081",
+      "rootUrl": "https://proxy-onestar3gram:8081",
+      "adminUrl": "https://proxy-onestar3gram:8081",
+      "baseUrl": "https://proxy-onestar3gram:8081",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://proxy-onestar3gram:8081/*"
+        "https://proxy-onestar3gram:8081/*"
       ],
       "webOrigins": [
-        "http://proxy-onestar3gram:8081"
+        "https://proxy-onestar3gram:8081"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1667,13 +1667,13 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-role-list-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-full-name-mapper",
             "saml-user-property-mapper",
-            "oidc-address-mapper",
             "saml-user-attribute-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-full-name-mapper",
+            "oidc-address-mapper",
             "oidc-usermodel-property-mapper"
           ]
         }
@@ -1687,13 +1687,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "saml-role-list-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-address-mapper",
             "oidc-usermodel-attribute-mapper",
             "oidc-full-name-mapper",
-            "saml-user-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-address-mapper",
-            "saml-user-property-mapper",
-            "oidc-usermodel-property-mapper"
+            "oidc-usermodel-property-mapper",
+            "saml-user-property-mapper"
           ]
         }
       },
