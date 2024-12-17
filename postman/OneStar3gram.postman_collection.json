@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "6d8cdf21-f67c-467e-aad7-f6b492b2f55c",
+		"name": "OneStar3gram",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33746658"
+	},
+	"item": [
+		{
+			"name": "Keycloak Access Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "onestar3gram-frontend",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{CHANGE_ME}",
+							"description": "Nom de l'utilisateur OneStar3gram",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{CHANGE_ME}",
+							"description": "Mot de passe de l'utilisateur",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://proxy-onestar3gram:8080/realms/OneStar3gram/protocol/openid-connect/token",
+					"protocol": "https",
+					"host": [
+						"proxy-onestar3gram"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"OneStar3gram",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
