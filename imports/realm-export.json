@@ -821,7 +821,7 @@
         "https://proxy-onestar3gram/*"
       ],
       "webOrigins": [
-        "https://proxy-onestar3gram/"
+        "https://proxy-onestar3gram"
       ],
       "notBefore": 0,
       "bearerOnly": false,
