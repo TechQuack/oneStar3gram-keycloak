@@ -45,7 +45,7 @@ http:
     front-service:
       loadBalancer:
         servers:
-          - url: "http://frontend:4200/"
+          - url: "http://frontend-onestar3gram:4200/"
 
 tls:
   certificates:
