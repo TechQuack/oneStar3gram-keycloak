@@ -74,7 +74,15 @@
         "composite": false,
         "clientRole": false,
         "containerId": "efea3db2-49d1-4ab5-8fda-6c030e67e282",
-        "attributes": {}
+        "attributes": {},
+        "composites": {
+          "client": {
+            "realm-management": [
+              "manage-realm",
+              "manage-users"
+            ]
+          }
+        }
       },
       {
         "id": "2298627f-697b-48bb-84c9-cbd0ebda3e81",
